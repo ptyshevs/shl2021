@@ -2,6 +2,7 @@ from tqdm.auto import tqdm
 from itertools import islice
 import pandas as pd
 import numpy as np
+from ts import parse_ts
 
 
 def chunker(it, size: int):
@@ -31,7 +32,7 @@ def get_wifi_df(path: str, nrows: int = None) -> pd.DataFrame:
                         columns=['ts', 'n_spots', 'bssid', 'ssid', 'rssi', 'freq', 'capabilities'],
                         nrows=nrows)
 
-    df.ts = pd.to_datetime(df.ts, unit='ms')
+    df.ts = parse_ts(df.ts)
     df.n_spots = df.n_spots.astype(np.uint16)
     df.rssi = df.rssi.astype(float)
     df.freq = df.freq.astype(float)
