@@ -2,3 +2,9 @@ pandas
 numpy
 tqdm
 pyyaml
+# plotting
+matplotlib
+plotly
+
+#models
+pydtmc
