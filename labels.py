@@ -16,3 +16,8 @@ def get_cls2label(path: str = os.path.join('data', 'cls2label.yaml')) -> Dict[in
     with open(path) as fp:
         cls2label = yaml.load(fp, Loader=yaml.loader.Loader)
     return cls2label
+
+def merge_data_labels(data_df, label_df):
+    mdf = pd.merge_asof(data_df, label_df, direction='forward', on='ts')
+    merged_df = mdf[(mdf.ts >= label_df.ts.min()) & (mdf.ts <= label_df.ts.max())].reset_index(drop=True)
+    return merged_df
